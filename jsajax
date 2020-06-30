@@ -1,0 +1,40 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<form action="/sendmail.php" method="POST">
+    <input type="text" name="name"><br/>
+    <input type="text" name="phone"><br/>
+    <input type="text" name="email"><br/>
+	<select name="option">
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+	</select>
+    <button type="submit">отправить</button>
+</form>
+<script>
+var forms = document.querySelectorAll("form");
+function submit(e) {
+	var request = new XMLHttpRequest();
+	request.onload = function () {
+		if (request.status == 200) {
+		alert("Успех!")
+	}
+	};
+	request.open(this.method, this.action, true);
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	var name = this.querySelector('[name="name"]');
+	var phone = this.querySelector('[name="phone"]');
+	var email = this.querySelector('[name="email"]');
+	var option = this.querySelector('[name="option"]');
+	request.send('name=' + encodeURIComponent(name.value) + '&phone='  + encodeURIComponent(phone.value) + '&email='  + encodeURIComponent(email.value) + '&option='  + encodeURIComponent(option.value));
+	e.preventDefault();
+}
+for (var i = 0; i < forms.length; i++) {
+	forms[i].onsubmit = submit;
+}
+</script>
+</body>
+</html>
