@@ -1,0 +1,74 @@
+<?php
+
+if ($_POST['name'] != "" || $_POST['phone'] != "") {
+
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $service = $_POST['service'];
+    $company = $_POST['company'];
+    $ask = $_POST['ask'];
+
+    $name = htmlspecialchars($name);
+    $phone = htmlspecialchars($phone);
+    $email = htmlspecialchars($email);
+    $service = htmlspecialchars($service);
+    $company = htmlspecialchars($company);
+    $ask = htmlspecialchars($ask);
+
+    $name = urldecode($name);
+    $phone = urldecode($phone);
+    $email = urldecode($email);
+    $service = urldecode($service);
+    $company = urldecode($company);
+    $ask = urldecode($ask);
+
+    $name = trim($name);
+    $phone = trim($phone);
+    $email = trim($email);
+    $service = trim($service);
+    $company = trim($company);
+    $ask = trim($ask);
+
+	$to  = 'berezin@rosnalogconsulting.ru'; // кому отправлять
+	$subject = "Заявка с сайта consultant-nalog.ru";
+	$message = '
+	<html>
+		<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<title>Заявка с сайта consultant-nalog.ru</title>
+		</head>
+		<body>
+			<p>Имя: '.$_POST['name'].'</p>
+			<p>Телефон: '.$_POST['phone'].'</p>
+			<p>E-mail: '.$_POST['email'].'</p>
+			<p>Должность: '.$_POST['service'].'</p>
+            <p>Компания: '.$_POST['company'].'</p>
+            <p>Вопрос: '.$_POST['ask'].'</p>
+		</body>
+	</html>';
+
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= "Content-type: text/html; charset=utf-8 \r\n";
+	$headers .= "From: consultant-nalog.ru <berezin@rosnalogconsulting.ru>\r\n";
+		
+	$result = mail($to, $subject, $message, $headers);
+
+	if ($result) {
+		$response = array(
+			"status" => "ok",
+			"message" => "Спасибо! Мы свяжемся с вами в ближайшее время."
+		);
+	} else {
+		$response = array(
+			"status" => "fail",
+			"message" => "Произошла ошибка. Попробуйте позже."
+		);
+	}
+
+	echo json_encode($response);
+}
+
+?>
+
+

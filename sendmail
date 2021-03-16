@@ -1,8 +1,0 @@
-<?php
-
-if ($_POST['name'] != "" || $_POST['phone'] != "" || $_POST['email'] != "" || $_POST['option'] != ""){
-	echo "name: ".$_POST['name']."<br/>"."phone: ".$_POST['phone']."<br/>"."email: ".$_POST['email']."<br/>"."option: ".$_POST['option'];
-	//mail("Получатель","Тема","Имя: ".$_POST['name']."\n"."Телефон: ".$_POST['phone']."\n"."E-mail: ".$_POST['email']."\n"."Пункт списка: ".$_POST['option']);
-}
-
-?>
